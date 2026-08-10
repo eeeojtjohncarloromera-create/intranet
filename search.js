@@ -1,5 +1,5 @@
 const siteSearchIndex = [
-    { url: 'PIndex.html', title: 'Home', keywords: ['home', 'homepage', 'dashboard', 'activities', 'directory', 'operation directory', 'operations', 'org chart', 'search'] },
+    { url: 'index.html', title: 'Home', keywords: ['home', 'homepage', 'dashboard', 'activities', 'directory', 'operation directory', 'operations', 'org chart', 'search'] },
     { url: 'admin.html', title: 'Admin Department', keywords: ['admin', 'administrator', 'admin department', 'administration', 'org chart', 'admin head'] },
     { url: 'expansion.html', title: 'Expansion Department', keywords: ['expansion', 'expansion department', 'org chart', 'growth'] },
     { url: 'finance.html', title: 'Finance Department', keywords: ['finance', 'financial', 'accounting', 'budget', 'finance department', 'org chart'] },
