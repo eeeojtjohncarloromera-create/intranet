@@ -3,7 +3,7 @@ const path = require('path');
 
 // Configuration
 const imagesFolder = path.join(__dirname, 'activity-images');
-const htmlFile = path.join(__dirname, 'PIndex.html');
+const htmlFile = path.join(__dirname, 'index.html');
 const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.bmp'];
 
 // Get all image files from the activity-images folder
