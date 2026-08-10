@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INTRANET</title>
+    <link rel="icon" href="images/eeelogo.svg">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            box-sizing: border-box;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 0px 0px;
+            background-color: transparent;
+            color: black;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: -10px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: transparent;
+        }
+
+        h1 {
+            background-color: red;
+            color: white;
+            text-align: center;
+            padding: 12px 15px;
+            font-size: 20px;
+            border-radius: 1px;
+            margin-top: 0px;
+        }
+
+        /* Org Chart */
+        .org-chart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .box {
+            width: 200px;
+            margin: 0 auto;
+            text-align: center;
+            border: 1px solid #000;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .box img {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            display: block;
+            margin: 0 auto 10px;
+        }
+
+        .vertical-line {
+            width: 1px;
+            height: 20px;
+            background: black;
+            margin: 0 auto;
+        }
+
+        .horizontal-line {
+            width: 847px;
+            height: 1px;
+            background: #333;
+        }
+
+        .row {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+        }
+
+        .child {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .child-line {
+            width: 2px;
+            height: 25px;
+            background: #333;
+        }
+
+        .logo {
+            color: #ff7200;
+            font-size: 22px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .logo-link {
+            text-decoration: none;
+        }
+
+        .logo-link:hover .logo {
+            color: #fff;
+            transition: color 0.3s ease;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.5) 50%), url("images/eee3.png");
+            background-position: center 100%;
+            width: 100%;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 3000;
+            border: none;
+            border-radius: 0;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            box-sizing: border-box;
+        }
+
+        .icon {
+            white-space: nowrap;
+            margin-right: 10px;
+            margin-left: 0;
+        }
+
+        .logo {
+            color: #ff7200;
+            font-size: 22px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .logo-link {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-link img {
+            width: 50px;
+            height: auto;
+        }
+
+        .logo-link:hover .logo {
+            color: #fff;
+            transition: color 0.3s ease;
+        }
+
+        .menu {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .menu ul {
+            display: flex;
+            gap: 30px;
+            font-size: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu li a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .menu li a:hover {
+            color: #ff7200;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-toggle {
+            cursor: pointer;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 110%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(5px);
+            min-width: 200px;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+            z-index: 1000;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            font-size: 0;
+            text-align-last: center;
+            text-align: center;
+            text-justify: center;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-menu {
+            border-collapse: collapse;
+            width: auto;
+            min-width: 200px;
+            text-align: center;
+            border: 10px;
+        }
+
+        .dropdown-menu tr {
+            text-align: center;
+        }
+
+        .dropdown-menu td {
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        .dropdown-menu td a {
+            display: inline-block;
+            margin: 0;
+            padding: 3px 20px;
+            color: #fff;
+            font-size: 12px;
+            line-height: normal;
+            height: auto;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .dropdown-menu td a:hover {
+            color: #ff7200;
+        }
+
+        .search {
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+            margin-right: -10px;
+        }
+
+        .srch {
+            width: 150px;
+            height: 40px;
+            background: transparent;
+            border: 1px solid #ff7200;
+            color: #fff;
+            font-size: 15px;
+            padding: 0 12px;
+            border-right: none;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+
+        .btn {
+            width: 90px;
+            height: 40px;
+            background: #ff7200;
+            border: 1px solid #ff7200;
+            color: #111;
+            font-size: 14px;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:focus,
+        .srch:focus {
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="icon">
+            <a href="PIndex.html" class="logo-link">
+                <img src="images/eeelogo.svg" alt="Logo">
+                <h2 class="logo">I N T R A N E T</h2>
+            </a>
+        </div>
+        <nav class="menu">
+            <ul>
+                <li class="dropdown" data-type="jobdescription">
+                    <a href="PIndex.html?type=jobdescription" class="dropdown-toggle">JOB DESCRIPTION</a>
+                    <table class="dropdown-menu">
+                        <tr>
+                            <td><a href="PIndex.html?type=jobdescription&dept=opex" data-dept="opex">Opex Department</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><a href="PIndex.html?type=jobdescription&dept=expansion" data-dept="expansion">Expansion
+                                    Department</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="PIndex.html?type=jobdescription&dept=hr" data-dept="hr">HR Department</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="PIndex.html?type=jobdescription&dept=security" data-dept="security">Security
+                                    Department</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="PIndex.html?type=jobdescription&dept=admin" data-dept="admin">Admin
+                                    Department</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="PIndex.html?type=jobdescription&dept=finance" data-dept="finance">Finance
+                                    Department</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="PIndex.html?type=jobdescription&dept=marketing" data-dept="marketing">Marketing
+                                    Department</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="PIndex.html?type=jobdescription&dept=it" data-dept="it">IT Department</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="PIndex.html?type=jobdescription&dept=operations"
+                                    data-dept="operations">Operations Department</a></td>
+                        </tr>
+                        <tr>
+                        </tr>
+                    </table>
+                </li>
+                <li class="dropdown" data-type="policy">
+                    <a href="PIndex.html?type=policy" class="dropdown-toggle">POLICY AND PROCEDURES</a>
+                    <table class="dropdown-menu">
+                        <tr>
+                            <td><a href="PIndex.html?type=policy&dept=opex" data-dept="opex">Opex Department</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="PIndex.html?type=policy&dept=expansion" data-dept="expansion">Expansion
+                                    Department</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="PIndex.html?type=policy&dept=hr" data-dept="hr">HR Department</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="PIndex.html?type=policy&dept=security" data-dept="security">Security
+                                    Department</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="PIndex.html?type=policy&dept=admin" data-dept="admin">Admin Department</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="PIndex.html?type=policy&dept=finance" data-dept="finance">Finance
+                                    Department</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="PIndex.html?type=policy&dept=marketing" data-dept="marketing">Marketing
+                                    Department</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="PIndex.html?type=policy&dept=it" data-dept="it">IT Department</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="PIndex.html?type=policy&dept=operations" data-dept="operations">Operations
+                                    Department</a></td>
+                        </tr>
+                        <tr>
+                        </tr>
+                    </table>
+                </li>
+                <li class="dropdown" data-type="orgchart">
+                    <a href="#" class="dropdown-toggle">ORGANIZATIONAL CHART</a>
+                    <table class="dropdown-menu">
+                        <tr>
+                            <td><a href="opex.html" data-dept="opex">Opex Department</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="expansion.html" data-dept="expansion">Expansion Department</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="hr.html" data-dept="hr">HR Department</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="security.html" data-dept="security">Security Department</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="admin.html" data-dept="admin">Admin Department</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="finance.html" data-dept="finance">Finance Department</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="marketing.html" data-dept="marketing">Marketing Department</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="it.html" data-dept="it">IT Department</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="operations.html" data-dept="operations">Operations Department</a></td>
+                        </tr>
+                        <tr>
+                        </tr>
+                    </table>
+                </li>
+                <li class="dropdown" data-type="memorandum">
+                    <a href="PIndex.html?type=memorandum" class="dropdown-toggle">MEMORANDUM</a>
+                    <table class="dropdown-menu">
+                        <tr>
+                            <td><a href="PIndex.html?type=memorandum&dept=opex" data-dept="opex">Opex Department</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><a href="PIndex.html?type=memorandum&dept=expansion" data-dept="expansion">Expansion
+                                    Department</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="PIndex.html?type=memorandum&dept=hr" data-dept="hr">HR Department</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="PIndex.html?type=memorandum&dept=security" data-dept="security">Security
+                                    Department</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="PIndex.html?type=memorandum&dept=admin" data-dept="admin">Admin Department</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><a href="PIndex.html?type=memorandum&dept=finance" data-dept="finance">Finance
+                                    Department</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="PIndex.html?type=memorandum&dept=marketing" data-dept="marketing">Marketing
+                                    Department</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="PIndex.html?type=memorandum&dept=it" data-dept="it">IT Department</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="PIndex.html?type=memorandum&dept=operations" data-dept="operations">Operations
+                                    Department</a></td>
+                        </tr>
+                        <tr>
+                        </tr>
+                    </table>
+                </li>
+                <li><a href="PIndex.html#activities">ACTIVITIES</a></li>
+                <li><a href="PIndex.html#directory">DIRECTORY</a></li>
+                
+            </ul>
+        </nav>
+        <div class="search">
+            <input class="srch" type="search" name="search" id="searchInput" placeholder="Type to search">
+            <button class="btn" id="searchBtn">Search</button>
+        </div>
+    </header>
+
+    <h1>OPERATIONS Department Organizational Chart</h1>
+    <div class="org-chart">
+
+        <!-- CEO -->
+        <div class="box">
+            <strong>Johnwin A. Custodio</strong><br>Chief Executive Officer
+        </div>
+        <div class="vertical-line"></div>
+
+        <!-- Department Head -->
+        <div class="box">
+            <strong>Operations Head</strong><br>Operations Department
+        </div>
+        <div class="vertical-line"></div>
+
+        <!-- Horizontal Connector -->
+        <div class="horizontal-line"></div>
+        <!-- Staff -->
+
+        <div class="row">
+            <div class="child">
+                <div class="child-line"></div>
+                <div class="box">
+                    <strong>Staff Member 1</strong> <br> Position
+                </div>
+            </div>
+
+            <div class="child">
+                <div class="child-line"></div>
+                <div class="box">
+                    <strong>Staff Member 2</strong> <br> Position
+                </div>
+            </div>
+
+            <div class="child">
+                <div class="child-line"></div>
+                <div class="box">
+                    <strong>Staff Member 3</strong> <br> Position
+                </div>
+            </div>
+
+            <div class="child">
+                <div class="child-line"></div>
+                <div class="box">
+                    <strong>Vacant</strong> <br> Position
+                </div>
+            </div>
+
+        </div>
+    <script src="search.js"></script>
+</body>
+
+</html>
