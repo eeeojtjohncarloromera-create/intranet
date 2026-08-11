@@ -10,8 +10,8 @@ html {
 
 body {
     font-family: Arial, sans-serif;
-    color: #fff;
-    background: #111;
+    color: #F8FAFC;
+    background: #07111F;
 }
 
 img {
@@ -21,8 +21,13 @@ img {
 
 .main {
     min-height: 100vh;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.5) 50%), url("images/eee3.png");
-    background-position: center 100%;
+    /* Keep the company artwork visible, but place it behind a navy corporate treatment. */
+    background-color: #07111F;
+    background-image:
+        radial-gradient(circle at 50% 46%, rgba(7, 17, 31, 0.10) 0%, rgba(7, 17, 31, 0.42) 62%, rgba(7, 17, 31, 0.66) 100%),
+        linear-gradient(135deg, rgba(7, 17, 31, 0.74) 0%, rgba(11, 20, 36, 0.68) 52%, rgba(60, 10, 10, 0.60) 100%),
+        url("images/eee3.png");
+    background-position: center, center, center 100%;
     background-size: cover;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -39,10 +44,10 @@ img {
     position: sticky;
     top: 0;
     z-index: 3000;
-    background: rgba(10, 10, 10, 0.35);
+    background: rgba(7, 17, 31, 0.50);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(148, 163, 184, 0.12);
     border-radius: 0 0 8px 8px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
@@ -1345,9 +1350,24 @@ details[open]>.dept-summary .toggle::before {
 
 #modalTitle {
     color: #ff7200;
-    font-size: 28px;
+    font-size: 25px;
     margin-bottom: 20px;
     text-align: center;
+}
+
+.modal-content p {
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+/* Generated document content uses inline sizes, so scope its compact modal scale here. */
+#pdfContainer h4 {
+    font-size: 16px !important;
+}
+
+#pdfContainer th,
+#pdfContainer td {
+    font-size: 12px !important;
 }
 
 .modal-image-container {
@@ -1438,6 +1458,12 @@ details[open]>.dept-summary .toggle::before {
 }
 
 @media (max-width: 640px) {
+
+    .main {
+        /* Fixed backgrounds can be expensive and visually jumpy on mobile. */
+        background-attachment: scroll;
+        background-position: center, center, center bottom;
+    }
 
     .search,
     .menu ul {
