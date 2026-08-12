@@ -309,6 +309,7 @@
             outline: none;
         }
     </style>
+    <link rel="stylesheet" href="mobile.css">
 </head>
 
 <body>
@@ -320,7 +321,8 @@
                 <h2 class="logo">I N T R A N E T</h2>
             </a>
         </div>
-        <nav class="menu">
+        <button class="mobile-menu-toggle" type="button" aria-label="Open navigation menu" aria-controls="primary-navigation" aria-expanded="false" style="display: none;">☰</button>
+        <nav class="menu" id="primary-navigation">
             <ul>
                 <li class="dropdown" data-type="jobdescription">
                     <a href="index.html?type=jobdescription" class="dropdown-toggle">JOB DESCRIPTION</a>
@@ -537,7 +539,10 @@
             </div>
 
         </div>
+    <script src="demo-auth.js"></script>
+    <script src="auth-guard.js"></script>
     <script src="search.js"></script>
+    <script src="mobile-nav.js"></script>
 </body>
 
 </html>

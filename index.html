@@ -13,6 +13,8 @@
     <link rel="icon" href="images/eeelogo.svg">
 
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="mobile.css">
+    <link rel="stylesheet" href="image-preview.css">
     <script src="https://unpkg.com/lucide@latest"></script>
 
 </head>
@@ -35,7 +37,9 @@
 
             </div>
 
-            <nav class="menu">
+            <button class="mobile-menu-toggle" type="button" aria-label="Open navigation menu" aria-controls="primary-navigation" aria-expanded="false" style="display: none;">☰</button>
+
+            <nav class="menu" id="primary-navigation">
 
                 <ul>
 
@@ -321,9 +325,9 @@
 
             <div class="main-header">
 
-                <h2 class="section-title-left">Department</h2>
+                <h2 class="section-title-left"><br>Department</h2>
 
-                <h2 class="section-title-right">News and Update</h2>
+                <h2 class="section-title-right"><br>News and Update</h2>
 
             </div>
 
@@ -1240,9 +1244,19 @@
 
     </div>
 
+    <div id="activityImageModal" class="activity-image-modal" role="dialog" aria-modal="true" aria-label="Activity image preview" hidden>
+        <button class="activity-image-modal-close" type="button" aria-label="Close image preview">&times;</button>
+        <img id="activityImagePreview" src="" alt="">
+    </div>
+
+    <script src="demo-auth.js"></script>
+    <script src="auth-guard.js"></script>
     <script src="data.js"></script>
     <script src="documents.js"></script>
     <script src="main.js"></script>
+    <script src="mobile-nav.js"></script>
+    <script src="mobile-table-scroll.js"></script>
+    <script src="mobile-image-preview.js"></script>
     <script src="search.js"></script>
 </body>
 

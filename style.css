@@ -567,6 +567,8 @@ img {
 
 .news-table tbody tr:hover {
     background: rgba(255, 112, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.04);
+    box-shadow: inset 2px 0 0 #FF7A00;
 }
 
 .news-table tbody tr:last-child td {
@@ -770,21 +772,37 @@ img {
     vertical-align: middle;
 }
 
+.operation-directory-table tbody tr {
+    background-color: rgba(15, 23, 42, 0.35);
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Cluster highlights use the same restrained treatment as a hovered row. */
 .operation-directory-table tbody tr:hover,
-.operation-directory-table tr.cluster-hover {
-    background: rgba(255, 112, 0, 0.1);
+.operation-directory-table tbody tr.cluster-hover {
+    background-color: rgba(255, 255, 255, 0.04);
+    box-shadow: inset 2px 0 0 #FF7A00;
 }
 
+.operation-directory-table tbody tr:hover td,
+.operation-directory-table tbody tr.cluster-hover td {
+    color: #F8FAFC;
+}
+
+/* When hovering another member of a cluster, retain feedback on its merged lead cell. */
 .operation-directory-table td.cluster-lead-hover {
- background: rgba(223, 105, 16, 0.24);
+    background-color: rgba(255, 255, 255, 0.04);
+    color: #F8FAFC;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.operation-directory-table tbody td:hover {
-    background: rgba(255, 112, 0, 0.1);
+.operation-directory-table tbody tr:focus-within {
+    background-color: rgba(255, 255, 255, 0.04);
+    box-shadow: inset 3px 0 0 #FF7A00;
 }
 
-.operation-directory-table tbody tr:hover td {
-    background: rgba(255, 112, 0, 0.1);
+.operation-directory-table tbody tr:focus-within td:first-child {
+    box-shadow: inset 3px 0 0 #FF7A00;
 }
 
 .directory-table {
@@ -804,7 +822,7 @@ img {
     text-align: left;
     font-size: 11px;
     border-bottom: 2px solid #ff7200;
-    background: rgba(20, 20, 20, 0.95);
+    background: rgba(20, 20, 20, 0.95); 
 }
 
 .directory-table th:nth-child(1),
@@ -834,6 +852,8 @@ img {
 
 .directory-table tbody tr:hover {
     background: rgba(255, 112, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.04);
+    box-shadow: inset 2px 0 0 #FF7A00;
 }
 
 .directory-table tbody tr:last-child td {
@@ -941,6 +961,8 @@ img {
 
 .events-table tbody tr:hover {
     background: rgba(255, 112, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.04);
+    box-shadow: inset 2px 0 0 #FF7A00;
 }
 
 .events-table tbody tr:last-child td {

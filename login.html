@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intranet Login | East Equator Express</title>
+    <link rel="icon" href="images/eeelogo.svg">
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <main class="login-page">
+        <section class="login-card" aria-labelledby="loginTitle">
+            <div class="login-brand">
+                <img src="images/eeelogo.svg" alt="East Equator Express logo">
+                <h1 id="loginTitle">EAST EQUATOR EXPRESS</h1>
+                <p>INTRANET ACCESS</p>
+            </div>
+            <form class="login-form" id="loginForm">
+                <div class="login-field">
+                    <label for="companyId">Company ID</label>
+                    <input id="companyId" name="companyId" type="text" autocomplete="username" placeholder="EEE-000" required>
+                </div>
+                <div class="login-field">
+                    <label for="password">Password</label>
+                    <div class="password-control">
+                        <input id="password" name="password" type="password" autocomplete="current-password" required>
+                        <button id="passwordToggle" class="password-toggle" type="button" aria-label="Show password">◉</button>
+                    </div>
+                </div>
+                <p class="login-error" id="loginError" aria-live="polite"></p>
+                <button class="login-submit" type="submit">LOGIN</button>
+            </form>
+        </section>
+    </main>
+    <script src="demo-auth.js"></script>
+    <script src="login.js"></script>
+</body>
+</html>
