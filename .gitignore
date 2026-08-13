@@ -1,0 +1,4 @@
+# Ignore accidental Chrome review artifacts
+.chrome-align-review/
+align-review.png
+desktop-review.png
