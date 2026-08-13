@@ -56,6 +56,7 @@ img {
     white-space: nowrap;
     margin-right: 10px;
     margin-left: -10px;
+    flex-shrink: 0;
 }
 
 .logo {
@@ -78,27 +79,34 @@ img {
 }
 
 .menu {
-    flex: 1;
+    flex: 1 1 auto;
     display: flex;
     justify-content: center;
+    align-items: center;
+    min-width: 0;
 }
 
 .menu ul {
     display: flex;
-    gap: 30px;
-    font-size: 12px;
-    flex-wrap: wrap;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
     list-style: none;
     margin: 0;
     padding: 0;
+}
+
+.menu li {
+    list-style: none;
 }
 
 .menu li a {
     text-decoration: none;
     color: #fff;
     font-weight: bold;
+    font-size: 12px;
+    letter-spacing: 0.02em;
     transition: color 0.3s ease;
 }
 
@@ -179,32 +187,41 @@ img {
 .search {
     display: flex;
     align-items: center;
-    margin-left: 10px;
-    margin-right: -10px;
+    gap: 0;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+/* Hide mobile-only search on desktop; it's shown via mobile.css at small widths */
+.mobile-search {
+    display: none;
 }
 
 .srch {
-    width: 150px;
-    height: 40px;
-    background: transparent;
-    border: 1px solid #ff7200;
+    width: 170px;
+    min-width: 170px;
+    height: 36px;
+    background: rgba(12, 18, 32, 0.7);
+    border: 1px solid rgba(255, 126, 0, 0.7);
     color: #fff;
-    font-size: 15px;
+    font-size: 12px;
     padding: 0 12px;
     border-right: none;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
 }
 
 .btn {
     width: 90px;
-    height: 40px;
+    min-width: 90px;
+    height: 36px;
     background: #ff7200;
     border: 1px solid #ff7200;
     color: #111;
-    font-size: 14px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
     cursor: pointer;
 }
 
@@ -212,6 +229,28 @@ img {
 .srch:focus {
     outline: none;
 }
+
+    @media (max-width: 1024px) {
+        .search {
+            margin-left: 6px;
+            margin-right: 4px;
+        }
+
+        .srch {
+            width: 90px;
+            font-size: 12px;
+            padding: 0 8px;
+            height: 30px;
+        }
+
+        .btn {
+            width: 54px;
+            min-width: 54px;
+            font-size: 12px;
+            height: 30px;
+        }
+    }
+
 
 .content-section {
     display: flex;
@@ -430,16 +469,30 @@ img {
     border-radius: 10px 10px 0 0;
     overflow: hidden;
     margin: 0;
+    table-layout: fixed;
 }
 
 .events-table-header th {
     color: #ff7200;
     font-weight: bold;
-    padding: 12px 10px;
+    padding: 4px 8px;
     text-align: left;
-    font-size: 14px;
+    font-size: 11px;
     border-bottom: 2px solid #ff7200;
     background: rgba(20, 20, 20, 0.95);
+    vertical-align: top;
+}
+
+.events-table-header th:nth-child(1) {
+    width: 25%;
+}
+
+.events-table-header th:nth-child(2) {
+    width: 50%;
+}
+
+.events-table-header th:nth-child(3) {
+    width: 25%;
 }
 
 .events-table-wrapper {
@@ -503,6 +556,21 @@ img {
     font-size: 14px;
     border-bottom: 2px solid #ff7200;
     background: rgba(20, 20, 20, 0.95);
+}
+
+.news-table-header th:nth-child(1),
+.news-table td:nth-child(1) {
+    width: 25%;
+}
+
+.news-table-header th:nth-child(2),
+.news-table td:nth-child(2) {
+    width: 50%;
+}
+
+.news-table-header th:nth-child(3),
+.news-table td:nth-child(3) {
+    width: 25%;
 }
 
 .news-table-wrapper {
@@ -657,31 +725,39 @@ img {
     border-radius: 10px 10px 0 0;
     overflow: hidden;
     margin: 0;
-    table-layout: auto;
+    table-layout: fixed;
 }
 
 .directory-table-header th {
     color: #ff7200;
     font-weight: bold;
-    padding: 4px 20px;
+    padding: 4px 8px;
     text-align: left;
     font-size: 11px;
     border-bottom: 2px solid #ff7200;
     background: rgba(20, 20, 20, 0.95);
+    vertical-align: top;
 }
 
-.directory-table-header th:nth-child(1) {
+.directory-table-header th:nth-child(1),
+.directory-table-header th:nth-child(2),
+.directory-table-header th:nth-child(3) {
     text-align: left;
 }
 
-.directory-table-header th:nth-child(2) {
-    text-align: right;
-    padding-right: 0px;
+.directory-table-header th:nth-child(1),
+.directory-table td:nth-child(1) {
+    width: 45%;
 }
 
-.directory-table-header th:nth-child(3) {
-    text-align: center;
-    padding-left: 44px;
+.directory-table-header th:nth-child(2),
+.directory-table td:nth-child(2) {
+    width: 30%;
+}
+
+.directory-table-header th:nth-child(3),
+.directory-table td:nth-child(3) {
+    width: 25%;
 }
 
 .directory-table-wrapper {
@@ -818,7 +894,7 @@ img {
 .directory-table th {
     color: #ff7200;
     font-weight: bold;
-    padding: 4px 40px;
+    padding: 4px 8px;
     text-align: left;
     font-size: 11px;
     border-bottom: 2px solid #ff7200;
@@ -831,23 +907,24 @@ img {
 }
 
 .directory-table th:nth-child(2),
-.directory-table td:nth-child(2) {  
+.directory-table td:nth-child(2) {
     width: 30%;
 }
 
 .directory-table th:nth-child(3),
 .directory-table td:nth-child(3) {
-    width: 27%;
+    width: 25%;
 }
 
 .directory-table td {
     color: #fff;
-    padding: 6px 20px;
+    padding: 6px 8px;
     font-size: 10px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     text-align: left;
     white-space: normal;
     word-wrap: break-word;
+    vertical-align: top;
 }
 
 .directory-table tbody tr:hover {
@@ -936,6 +1013,7 @@ img {
     border-radius: 10px;
     overflow: hidden;
     padding: 0;
+    table-layout: fixed;
 }
 
 .events-table thead {
@@ -945,18 +1023,20 @@ img {
 .events-table th {
     color: #ff7200;
     font-weight: bold;
-    padding: 12px 10px;
+    padding: 4px 8px;
     text-align: left;
-    font-size: 14px;
+    font-size: 11px;
     border-bottom: 2px solid #ff7200;
     background: rgba(20, 20, 20, 0.95);
 }
 
 .events-table td {
-    font-size: 12px;
-    padding: 10px;
+    font-size: 10px;
+    padding: 6px 8px;
     color: #fff;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: left;
+    vertical-align: top;
 }
 
 .events-table tbody tr:hover {
@@ -1487,10 +1567,19 @@ details[open]>.dept-summary .toggle::before {
         background-position: center, center, center bottom;
     }
 
-    .search,
     .menu ul {
         flex-direction: column;
         gap: 12px;
+    }
+
+    .search:not(.mobile-search) {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .search.mobile-search {
+        flex-direction: row;
+        gap: 0;
     }
 
     .srch {

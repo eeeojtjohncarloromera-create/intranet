@@ -165,7 +165,11 @@ const directorySection = document.getElementById('directory');
 
 activitiesLink.addEventListener('click', (e) => {
     e.preventDefault();
-    activitiesSection.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    // Compute an offset to account for the fixed header/mobile menu height
+    const offset = 80; // adjust as needed for mobile header height
+    const elementPosition = activitiesSection.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - offset;
+    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
 });
 
 directoryLink.addEventListener('click', (e) => {
