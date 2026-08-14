@@ -66,8 +66,7 @@ function searchDepartments(searchTerm) {
     return foundMatch;
 }
 
-function performSiteSearch() {
-    const siteSearchInput = document.getElementById('searchInput');
+function performSiteSearch(siteSearchInput = document.getElementById('searchInput')) {
     if (!siteSearchInput) return;
 
     const searchTerm = siteSearchInput.value.toLowerCase().trim();
@@ -91,28 +90,35 @@ function performSiteSearch() {
 }
 
 function initializeSiteSearch() {
-    const siteSearchInput = document.getElementById('searchInput');
-    const siteSearchBtn = document.getElementById('searchBtn');
-    if (!siteSearchInput || !siteSearchBtn) return;
+    const searchAreas = [...document.querySelectorAll('.site-search')];
+    const searchControls = searchAreas.length
+        ? searchAreas.map((area) => ({
+            input: area.querySelector('.srch'),
+            button: area.querySelector('.btn'),
+        }))
+        : [{
+            input: document.getElementById('searchInput'),
+            button: document.getElementById('searchBtn'),
+        }];
 
-    siteSearchBtn.addEventListener('click', performSiteSearch);
-    siteSearchInput.addEventListener('keyup', (e) => {
-        if (e.key === 'Enter') {
-            performSiteSearch();
-        }
-    });
+    const activeControls = searchControls.filter(({ input, button }) => input && button);
+    if (!activeControls.length) return;
 
-    siteSearchInput.addEventListener('input', () => {
-        if (siteSearchInput.value.trim() === '') {
-            clearDepartmentSearch();
-        }
+    activeControls.forEach(({ input, button }) => {
+        button.addEventListener('click', () => performSiteSearch(input));
+        input.addEventListener('keyup', (event) => {
+            if (event.key === 'Enter') performSiteSearch(input);
+        });
+        input.addEventListener('input', () => {
+            if (input.value.trim() === '') clearDepartmentSearch();
+        });
     });
 
     const params = new URLSearchParams(window.location.search);
     const query = params.get('q') || params.get('search');
     if (query) {
-        siteSearchInput.value = query;
-        performSiteSearch();
+        activeControls.forEach(({ input }) => { input.value = query; });
+        performSiteSearch(activeControls[0].input);
     }
 }
 

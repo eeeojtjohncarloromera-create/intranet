@@ -12,7 +12,7 @@ body > h1 {
 
 body > .org-chart {
     --org-line: #8796a8;
-    width: min(100% - 48px, 980px);
+    width: min(100% - 48px, 1110px);
     min-height: calc(100vh - 150px);
     margin: 0 auto;
     padding: 38px 0 60px;
@@ -23,7 +23,7 @@ body > .org-chart {
 }
 
 .org-chart .box {
-    width: 100%;
+    width: min(100%, 242px);
     min-height: 166px;
     padding: 20px 16px 16px;
     box-sizing: border-box;
@@ -37,6 +37,12 @@ body > .org-chart {
 
 .org-chart > .box:first-of-type { border-top-color: #8c1117; }
 .org-chart > .vertical-line + .box { border-top-color: #d5222b; }
+
+/* Only the CEO uses a portrait on the department chart pages. */
+.org-chart > .vertical-line + .box img,
+.org-chart .child .box img {
+    display: none;
+}
 
 .org-chart .box img {
     width: 76px;

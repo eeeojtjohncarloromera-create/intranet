@@ -462,6 +462,10 @@
         .srch:focus {
             outline: none;
         }
+
+        .mobile-search {
+            display: none;
+        }
     </style>
     <link rel="stylesheet" href="mobile.css">
 </head>
@@ -478,6 +482,10 @@
         <button class="mobile-menu-toggle" type="button" aria-label="Open navigation menu" aria-controls="primary-navigation" aria-expanded="false" style="display: none;">☰</button>
         <nav class="menu" id="primary-navigation">
             <ul>
+                <li class="mobile-search site-search">
+                    <input class="srch" type="search" name="search" id="mobileSearchInput" placeholder="Type to search" aria-label="Search intranet">
+                    <button class="btn" id="mobileSearchBtn" type="button">Search</button>
+                </li>
                 <li class="dropdown" data-type="jobdescription">
                     <a href="index.html?type=jobdescription" class="dropdown-toggle">JOB DESCRIPTION</a>
                     <table class="dropdown-menu">
@@ -696,12 +704,14 @@
                 </li>
                 <li><a href="index.html#activities">ACTIVITIES</a></li>
                 <li><a href="index.html#directory">DIRECTORY</a></li>
+                <li class="mobile-logout"><button class="logout-btn" type="button">LOG OUT</button></li>
                 
             </ul>
         </nav>
-        <div class="search">
+        <div class="search header-search site-search">
             <input class="srch" type="search" name="search" id="searchInput" placeholder="Type to search">
             <button class="btn" id="searchBtn">Search</button>
+            <button class="logout-btn" type="button" title="Log out" aria-label="Log out">⎋</button>
         </div>
     </header>
 
@@ -777,6 +787,7 @@
     </main>
     <script src="demo-auth.js"></script>
     <script src="auth-guard.js"></script>
+    <script src="logout.js"></script>
     <script src="search.js"></script>
     <script src="mobile-nav.js"></script>
 </body>
