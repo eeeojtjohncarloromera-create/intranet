@@ -216,6 +216,34 @@ dropdownLinks.forEach((link) => {
     });
 });
 
+// Mobile logout handling
+const logoutLink = document.getElementById('logoutLink');
+if (logoutLink) {
+    logoutLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        try {
+            if (typeof demoAuth !== 'undefined' && demoAuth.logout) demoAuth.logout();
+        } catch (err) {
+            localStorage.removeItem('eeeDemoAuthenticated');
+        }
+        window.location.href = 'login.html';
+    });
+}
+
+// Desktop logout button (beside search)
+const logoutBtn = document.getElementById('logoutBtn');
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        try {
+            if (typeof demoAuth !== 'undefined' && demoAuth.logout) demoAuth.logout();
+        } catch (err) {
+            localStorage.removeItem('eeeDemoAuthenticated');
+        }
+        window.location.href = 'login.html';
+    });
+}
+
 function openDropdownModal(deptId, type) {
     const modal = document.getElementById('documentModal');
     const modalTitle = document.getElementById('modalTitle');
