@@ -36,65 +36,219 @@
             background-color: red;
             color: white;
             text-align: center;
-            padding: 12px 15px;
+            padding: 20px 15px;
             font-size: 20px;
             border-radius: 1px;
             margin-top: 0px;
         }
 
-        /* Org Chart */
+        /* OPEX organizational chart */
+        .org-chart-wrap {
+            min-height: calc(100vh - 150px);
+            padding: 42px 24px 60px;
+            background: #f5f7fb;
+        }
+
         .org-chart {
+            --line: #8796a8;
+            --card-border: #dbe2ea;
+            max-width: 1180px;
+            margin: 0 auto;
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+
+        .org-node {
+            width: min(100%, 242px);
+            position: relative;
+            z-index: 1;
+        }
+
+        .org-node::after {
+            content: "";
+            display: block;
+            width: 2px;
+            height: 32px;
+            margin: 0 auto;
+            background: var(--line);
+        }
+
+        .team-member > .org-node::after,
+        .vacant-child::after {
+            display: none;
         }
 
         .box {
-            width: 200px;
-            margin: 0 auto;
+            min-height: 166px;
+            box-sizing: border-box;
+            padding: 20px 16px 16px;
+            background: #fff;
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            box-shadow: 0 8px 22px rgba(25, 39, 60, .09);
             text-align: center;
-            border: 1px solid #000;
-            padding: 15px;
-            border-radius: 8px;
         }
 
-        .box img {
-            width: 75px;
-            height: 75px;
+        .executive .box { border-top: 5px solid #8c1117; }
+        .department-head .box { border-top: 5px solid #d5222b; }
+        .team-member .box { border-top: 5px solid #f08b21; }
+        .vacant .box { border-top: 5px solid #98a5b5; background: #fbfcfe; }
+
+        .box img,
+        .avatar-placeholder {
+            width: 76px;
+            height: 76px;
+            display: grid;
+            place-items: center;
+            margin: 0 auto 13px;
             border-radius: 50%;
+            object-fit: cover;
+            background: #e8edf3;
+            color: #667488;
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        .box strong {
             display: block;
-            margin: 0 auto 10px;
+            color: #172033;
+            font-size: 16px;
+            line-height: 1.25;
         }
 
-        .vertical-line {
-            width: 1px;
-            height: 20px;
-            background: black;
-            margin: 0 auto;
+        .role {
+            display: block;
+            margin-top: 6px;
+            color: #667488;
+            font-size: 13px;
+            line-height: 1.35;
         }
 
-        .horizontal-line {
-            width: 847px;
-            height: 1px;
-            background: #333;
+        .team {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 28px;
+            position: relative;
+            padding-top: 32px;
         }
 
-        .row {
-            display: flex;
-            justify-content: center;
-            gap: 50px;
+        .team::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: calc((100% - 84px) / 8);
+            right: calc((100% - 84px) / 8);
+            height: 2px;
+            background: var(--line);
         }
 
-        .child {
+        .team-member {
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative;
         }
 
-        .child-line {
+        .team-member::before {
+            content: "";
+            position: absolute;
+            top: -32px;
             width: 2px;
-            height: 25px;
-            background: #333;
+            height: 32px;
+            background: var(--line);
+        }
+
+        .vacant-child {
+            width: min(100%, 242px);
+            position: relative;
+            margin: 28px auto 0;
+        }
+
+        .vacant-child::before {
+            content: "";
+            position: absolute;
+            top: -28px;
+            left: 42px;
+            width: 4px;
+            height: 28px;
+            background: var(--line);
+        }
+
+        /* Shawn's vacant position is connected outside the left card edges. */
+        .team-member:first-child .vacant-child::before {
+            display: none;
+        }
+
+        .side-connector {
+            position: absolute;
+            top: 83px;
+            bottom: 83px;
+            left: calc(50% - 139px);
+            width: 2px;
+            background: var(--line);
+            pointer-events: none;
+        }
+
+        .side-connector::before,
+        .side-connector::after {
+            content: "";
+            position: absolute;
+            left: 2px;
+            width: 18px;
+            height: 2px;
+            background: var(--line);
+        }
+
+        .side-connector::before { top: 0; }
+        .side-connector::after { bottom: 0; }
+
+        /* Shared bold weight for every organizational connector. */
+        .org-node::after,
+        .team-member::before,
+        .vacant-child::before,
+        .side-connector,
+        .team-member::after {
+            width: 4px;
+        }
+
+        .team::before,
+        .side-connector::before,
+        .side-connector::after {
+            height: 4px;
+        }
+
+        .side-connector::before,
+        .side-connector::after {
+            left: 4px;
+        }
+
+        @media (max-width: 850px) {
+            .team {
+                grid-template-columns: 1fr;
+                padding-top: 0;
+                gap: 0;
+            }
+
+            .team::before,
+            .team-member::before {
+                display: none;
+            }
+
+            .team-member::after {
+                content: "";
+                display: block;
+                width: 2px;
+                height: 30px;
+                background: var(--line);
+            }
+
+            .team-member:last-child::after { display: none; }
+        }
+
+        @media (max-width: 560px) {
+            .org-chart-wrap { padding: 28px 16px 42px; }
         }
 
         .logo {
@@ -552,60 +706,75 @@
     </header>
 
     <h1>OPEX Organizational Chart</h1>
-    <div class="org-chart">
-
-        <!-- CEO -->
-        <div class="box">
-            <img src="images/johnwin.png" alt="Johnwin">
-            <strong>Johnwin A. Custodio</strong><br>Chief Executive Officer
-        </div>
-        <div class="vertical-line"></div>
-
-        <!-- Department Head -->
-        <div class="box">
-            <img src="images/bryan.png" alt="Bryan" width="500" height="333">
-            <strong>Bryan L. Enrera</strong><br>Operation Excellence Head
-        </div>
-        <div class="vertical-line"></div>
-
-        <!-- Horizontal Connector -->
-        <div class="horizontal-line"></div>
-        <!-- Staff -->
-
-        <div class="row">
-            <div class="child">
-                <div class="child-line"></div>
+    <main class="org-chart-wrap">
+        <section class="org-chart" aria-label="Operation Excellence organizational chart">
+            <article class="org-node executive">
                 <div class="box">
-                    <img src="images/shawn.png" alt="Bryan" width="500" height="333">
-                    <strong>Shawn Michael Dagatan</strong> <br> Data Analyst
+                    <img src="images/johnwin.png" alt="Johnwin A. Custodio">
+                    <strong>Johnwin A. Custodio</strong>
+                    <span class="role">Chief Executive Officer</span>
+                </div>
+            </article>
+
+            <article class="org-node department-head">
+                <div class="box">
+                    <img src="images/bryan.png" alt="Bryan L. Enrera">
+                    <strong>Bryan L. Enrera</strong>
+                    <span class="role">Operation Excellence Head</span>
+                </div>
+            </article>
+
+            <div class="team" aria-label="Operation Excellence team">
+                <div class="team-member">
+                    <article class="org-node">
+                        <div class="box">
+                            <img src="images/shawn.png" alt="Shawn Michael Dagatan">
+                            <strong>Shawn Michael Dagatan</strong>
+                            <span class="role">Data Analyst</span>
+                        </div>
+                    </article>
+                    <span class="side-connector" aria-hidden="true"></span>
+                    <article class="vacant-child vacant">
+                        <div class="box">
+                            <span class="avatar-placeholder" aria-hidden="true">+</span>
+                            <strong>Vacant</strong>
+                            <span class="role">Position</span>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="team-member">
+                    <article class="org-node">
+                        <div class="box">
+                            <img src="images/aira.png" alt="Airalee Menguito">
+                            <strong>Airalee Menguito</strong>
+                            <span class="role">Data Encoder</span>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="team-member">
+                    <article class="org-node">
+                        <div class="box">
+                            <img src="images/jaynard.png" alt="Jaynard Asedillas">
+                            <strong>Jaynard Asedillas</strong>
+                            <span class="role">Continuous Improvement</span>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="team-member vacant">
+                    <article class="org-node">
+                        <div class="box">
+                            <span class="avatar-placeholder" aria-hidden="true">+</span>
+                            <strong>Vacant</strong>
+                            <span class="role">Performance Management</span>
+                        </div>
+                    </article>
                 </div>
             </div>
-
-            <div class="child">
-                <div class="child-line"></div>
-                <div class="box">
-                    <img src="images/aira.png" alt="Bryan" width="500" height="333">
-                    <strong>Airalee Menguito</strong> <br> Data Encoder
-                </div>
-            </div>
-
-            <div class="child">
-                <div class="child-line"></div>
-                <div class="box">
-                    <img src="images/jaynard.png" alt="Bryan" width="500" height="333">
-                    <strong>Jaynard Asedillas</strong> <br> Continuous Improvement
-                </div>
-            </div>
-
-            <div class="child">
-                <div class="child-line"></div>
-                <div class="box">
-                    <img src="images/bryan.png" alt="Bryan" width="500" height="333">
-                    <strong>Vacant</strong> <br> Performance Management
-                </div>
-            </div>
-
-        </div>
+        </section>
+    </main>
     <script src="demo-auth.js"></script>
     <script src="auth-guard.js"></script>
     <script src="search.js"></script>
