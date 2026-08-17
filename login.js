@@ -38,7 +38,15 @@
             const safeRoute = requestedRoute && /^[a-zA-Z0-9_-]+\.html(?:[?#].*)?$/.test(requestedRoute)
                 ? requestedRoute
                 : 'index.html';
-            window.location.replace(safeRoute);
+            try {
+                sessionStorage.setItem('eeeLoginTransition', 'true');
+            } catch {
+                // The redirect still works if session storage is unavailable.
+            }
+
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            document.querySelector('.login-page')?.classList.add('login-page--leaving');
+            window.setTimeout(() => window.location.replace(safeRoute), reduceMotion ? 0 : 400);
         }, 350);
     });
 })();

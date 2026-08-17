@@ -1,0 +1,28 @@
+/* Login-to-intranet transition only. Kept separate from the existing page styles. */
+.login-page {
+    transition: opacity .4s ease, transform .4s ease;
+}
+
+.login-page.login-page--leaving {
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+}
+
+html.intranet-page--entering .main {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity .4s ease, transform .4s ease;
+}
+
+html.intranet-page--entering.intranet-page--entered .main {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .login-page,
+    html.intranet-page--entering .main {
+        transition: none;
+    }
+}
