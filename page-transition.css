@@ -1,13 +1,58 @@
 /* Login-to-intranet transition only. Kept separate from the existing page styles. */
-.login-page {
-    transition: opacity .4s ease, transform .4s ease;
+.login-page { position: relative; isolation: isolate; }
+.login-page--transitioning { overflow: hidden; }
+
+.login-page::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: #07111F;
+    opacity: 0;
 }
 
-.login-page.login-page--leaving {
-    opacity: 0;
-    transform: translateY(-10px);
+
+.login-card { position: relative; z-index: 2; will-change: transform, opacity; }
+.login-page--transitioning .login-card {
+    animation: login-content-exit .6s cubic-bezier(.22, .61, .36, 1) forwards;
     pointer-events: none;
 }
+.login-page--leaving::before { animation: login-navy-handoff .26s ease forwards; }
+
+/* This is the original #loginTitle node, temporarily centered for the handoff. */
+.login-transition-heading {
+    position: fixed;
+    top: var(--title-start-y, 50%);
+    left: var(--title-start-x, 50%);
+    z-index: 3;
+    width: max-content;
+    max-width: 94vw;
+    margin: 0;
+    transform: translate(-50%, -50%) scale(1);
+    transform-origin: center center;
+    text-align: center;
+    white-space: nowrap;
+    will-change: transform, opacity;
+    transition: top .7s cubic-bezier(.22, .61, .36, 1), left .7s cubic-bezier(.22, .61, .36, 1);
+}
+
+.login-transition-heading.is-centered { top: 50%; left: 50%; }
+
+.login-transition-heading.is-zooming {
+    animation: login-heading-zoom 1.2s linear forwards;
+}
+
+@keyframes login-content-exit {
+    to { opacity: 0; transform: translateY(-8px); }
+}
+
+@keyframes login-heading-zoom {
+    0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    76% { opacity: 1; transform: translate(-50%, -50%) scale(7); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(10); }
+}
+
+@keyframes login-navy-handoff { to { opacity: 1; } }
 
 html.intranet-page--entering .main {
     opacity: 0;
@@ -20,9 +65,19 @@ html.intranet-page--entering.intranet-page--entered .main {
     transform: translateY(0);
 }
 
+@media (max-width: 480px) {
+    .login-transition-heading {
+        max-width: 92vw;
+        white-space: normal;
+        line-height: 1.15;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
-    .login-page,
+    .login-card,
+    .login-transition-heading,
     html.intranet-page--entering .main {
+        animation: none;
         transition: none;
     }
 }

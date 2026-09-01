@@ -1,0 +1,63 @@
+/* Mobile-only organizational chart canvas. Desktop chart styles remain untouched. */
+@media (max-width: 768px), (max-height: 500px) and (orientation: landscape) {
+    .org-chart-mobile-container {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        box-sizing: border-box;
+        touch-action: auto;
+    }
+
+    .org-chart-mobile-container > .org-chart.is-mobile-fitted {
+        transform: scale(var(--mobile-chart-scale, 1));
+        transform-origin: top left;
+    }
+
+    /* Shared department charts: retain the desktop canvas dimensions and hierarchy. */
+    .org-chart-mobile-container > .org-chart {
+        --org-line: #8796a8;
+        width: 1110px;
+        min-width: 1110px;
+        min-height: calc(100vh - 150px);
+        margin: 0 auto;
+        padding: 28px 0 60px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-sizing: border-box;
+    }
+
+    .org-chart-mobile-container > .org-chart .horizontal-line { display: block; }
+    .org-chart-mobile-container > .org-chart > .row {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .org-chart-mobile-container > .org-chart .child {
+        width: auto;
+        min-width: 0;
+    }
+
+    .org-chart-mobile-container > .org-chart .child:last-child .child-line { display: block; }
+
+    /* OPEX uses a different chart markup; preserve its four-column canvas as well. */
+    .org-chart-wrap > .org-chart-mobile-container > .org-chart {
+        width: 1180px;
+        min-width: 1180px;
+        max-width: none;
+        padding: 0;
+    }
+
+    .org-chart-wrap > .org-chart-mobile-container > .org-chart .team {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        padding-top: 32px;
+        gap: 28px;
+    }
+
+    .org-chart-wrap > .org-chart-mobile-container > .org-chart .team::before,
+    .org-chart-wrap > .org-chart-mobile-container > .org-chart .team-member::before { display: block; }
+
+    .org-chart-wrap > .org-chart-mobile-container > .org-chart .team-member::after { display: none; }
+
+}
